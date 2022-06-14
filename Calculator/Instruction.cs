@@ -25,10 +25,10 @@ namespace Calculator
             }
             this.Number = doubleNumber;
 
-            // select operator classfrom strategy dictionary
+            // select operator class from strategy dictionary
             try
             {
-                this.Operator = Operators.OperatorsDictionary[operation];
+                this.Operator = Operators.GetOperatorFromDictionary(operation);
             }
             catch (Exception)
             {

@@ -8,22 +8,32 @@ namespace Calculator
 {
     public static class Operators
     {
-        public static Dictionary<string, IOperator> OperatorsDictionary { get; set; }
-
-        public static void SetUpOperatorsDictionary()
+        private static Dictionary<string, IOperator> _operatorsDictionary;
+        
+        public static Dictionary<string, IOperator> OperatorsDictionary()
         {
-            if (OperatorsDictionary != null)
-                return;
+            if (_operatorsDictionary != null)
+                return _operatorsDictionary;
 
-            OperatorsDictionary = new Dictionary<string, IOperator>();
+            return SetUpOperatorsDictionary();
+        }      
 
-            OperatorsDictionary.Add("add", new OperatorAdd());
-            OperatorsDictionary.Add("subtract", new OperatorSubtract());
-            OperatorsDictionary.Add("multiply", new OperatorMultiply());
-            OperatorsDictionary.Add("divide", new OperatorDivide());
-            OperatorsDictionary.Add("apply", new OperatorApply());
-            OperatorsDictionary.Add("percent", new OperatorPercent());
+        private static Dictionary<string, IOperator> SetUpOperatorsDictionary()
+        {
+            _operatorsDictionary = new Dictionary<string, IOperator>();
+
+            _operatorsDictionary.Add("add", new OperatorAdd());
+            _operatorsDictionary.Add("subtract", new OperatorSubtract());
+            _operatorsDictionary.Add("multiply", new OperatorMultiply());
+            _operatorsDictionary.Add("divide", new OperatorDivide());
+            _operatorsDictionary.Add("apply", new OperatorApply());
+            _operatorsDictionary.Add("percent", new OperatorPercent());
+
+            return _operatorsDictionary;
         }
-
+        public static IOperator GetOperatorFromDictionary(string operation)
+        {
+            return _operatorsDictionary[operation];
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace Calculator.UnitTests
         [SetUp]
         public void Setup()
         {
-            Operators.SetUpOperatorsDictionary();
+            Operators.OperatorsDictionary();
 
         }
 

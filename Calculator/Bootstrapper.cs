@@ -13,7 +13,7 @@ namespace Calculator
                 throw new Exception("Calculator expects an Instructions Input file string path as an argument. \nEx: Calculator \"c:\\instructions.txt\"");
 
             // Initializes operators dictionary
-            Operators.SetUpOperatorsDictionary();
+            Operators.OperatorsDictionary();
 
             // Generate instructions list from input file
             var instructions = InstructionFileReader.GetInstructions(args[0]);
