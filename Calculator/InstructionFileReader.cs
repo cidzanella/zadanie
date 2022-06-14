@@ -30,7 +30,7 @@ namespace Calculator
         private List<string> ReadInstructionStringsFromFile()
         {
             // get all instructions lines from the file
-            string[] instructionStrings = File.ReadAllLines(_inputFile);
+            var instructionStrings = File.ReadAllLines(_inputFile);
 
             // check if got any instruction from file 
             if (instructionStrings.Length == 0)
@@ -40,12 +40,12 @@ namespace Calculator
         }
 
         // Generate instructions list from list of strings read from the file
-        public List<Instruction> GetInstructionList()
+        public List<IInstruction> GetInstructionList()
         {
             // read lines from instructions input file
-            List<String> instructionStrings = ReadInstructionStringsFromFile();
+            var instructionStrings = ReadInstructionStringsFromFile();
 
-            List<Instruction> instructions = new List<Instruction>();
+            var instructions = new List<IInstruction>();
 
             // loop string list from file checking format and creating instruction list 
             foreach (String instructionString in instructionStrings)
@@ -54,7 +54,7 @@ namespace Calculator
 
                 CheckInstructionSeparator(instructionString);
 
-                Instruction instruction = CreateInstruction(instructionString);
+                var instruction = CreateInstruction(instructionString);
                 if (instruction != null)
                     instructions.Add(instruction);
             }
@@ -67,23 +67,22 @@ namespace Calculator
         }
 
         // check if last instruction operator is APPLY
-        private void CheckLastOperatorIsApply(Instruction instruction)
+        private void CheckLastOperatorIsApply(IInstruction instruction)
         {
-            if (instruction.Operator != Operators.Apply)
+            if (instruction.Operator.GetType().Name != "OperatorApply")
                 throw new Exception("Wrong instruction sequence. Expect Apply as last operator.");
-
         }
 
         // Generate an instruction from string, spliting it into operator and number
-        private Instruction CreateInstruction(string instructionString)
+        private IInstruction CreateInstruction(string instructionString)
         {
             // split instruction string in two parts
             string[] instructionParts = instructionString.Split(' ');
-            string calcOperator = instructionParts[0];
+            string operation = instructionParts[0];
             string number = instructionParts[1];
 
             // creates an Instruction object
-            return new Instruction(calcOperator, number);
+            return new Instruction(operation, number);
 
         }
 
