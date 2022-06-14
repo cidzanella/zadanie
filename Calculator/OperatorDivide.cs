@@ -10,6 +10,10 @@ namespace Calculator
     {
         public double Process(double output, double number)
         {
+            // check to avoid dividing by zero 
+            if (number == 0)
+                throw new Exception("Divide by zero error. Instruction 'divide 0' is not allowed.");
+
             return output / number;
         }
     }

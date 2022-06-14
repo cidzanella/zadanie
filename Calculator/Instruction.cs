@@ -21,12 +21,19 @@ namespace Calculator
             // validates number parameter
             if (!double.TryParse(number, out double doubleNumber))
             {
-                throw new ArgumentException($"'{number}' is not a valid number for Instruction.");
+                throw new Exception($"'{number}' is not a valid number for Instruction.");
             }
             this.Number = doubleNumber;
-            
-           // select operator classfrom strategy dictionary
-            this.Operator = Operators.OperatorsDictionary[operation];
+
+            // select operator classfrom strategy dictionary
+            try
+            {
+                this.Operator = Operators.OperatorsDictionary[operation];
+            }
+            catch (Exception)
+            {
+                throw new Exception($"'{operation}' is not a valid operator for Instruction.");
+            }
        }
    }
 }

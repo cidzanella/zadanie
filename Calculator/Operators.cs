@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    internal static class Operators
+    public static class Operators
     {
         public static Dictionary<string, IOperator> OperatorsDictionary { get; set; }
 
         public static void SetUpOperatorsDictionary()
         {
-            if (OperatorsDictionary == null)
-                OperatorsDictionary = new Dictionary<string, IOperator>();
+            if (OperatorsDictionary != null)
+                return;
+
+            OperatorsDictionary = new Dictionary<string, IOperator>();
 
             OperatorsDictionary.Add("add", new OperatorAdd());
             OperatorsDictionary.Add("subtract", new OperatorSubtract());
