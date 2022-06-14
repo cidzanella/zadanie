@@ -20,13 +20,15 @@ namespace Calculator.UnitTests
             instructions.Add(new Instruction("add", "2"));
             instructions.Add(new Instruction("multiply", "3"));
             instructions.Add(new Instruction("divide", "2"));
+            instructions.Add(new Instruction("subtract", "4"));
+            instructions.Add(new Instruction("percent", "50"));
             instructions.Add(new Instruction("apply", "10"));
 
             // Act
             double output = InstructionProcessor.Process(instructions);
 
             // Assert
-            Assert.AreEqual(output, 18);
+            Assert.AreEqual(output, 7);
         }
 
         [Test]
