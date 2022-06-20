@@ -28,7 +28,7 @@ namespace Calculator
             // select operator class from strategy dictionary
             try
             {
-                this.Operator = Operators.GetOperatorFromDictionary(operation);
+                this.Operator = OperatorsFactory.GetOperatorFromDictionary(operation);
             }
             catch (Exception)
             {

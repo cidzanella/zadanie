@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace Calculator
 {
     // Receives a list of instructions, process it and return result
-    public static class InstructionProcessor
+    public class InstructionProcessorService : IInstructionProcessor
     {
-        public static double Process(List<IInstruction> instructions)
+        public double Process(ICollection<IInstruction> instructions)
         {
             // get the number associated with Apply operator
             double output = instructions.Last().Number;

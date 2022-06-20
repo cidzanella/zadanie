@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Calculator.UnitTests
 {
@@ -9,14 +10,14 @@ namespace Calculator.UnitTests
         [SetUp]
         public void Setup()
         {
-            Operators.OperatorsDictionary();
+            OperatorsFactory.OperatorsDictionary();
         }
 
         [Test]
         public void Process_ValidInstructionsList_ReturnTheResultOfOperations()
         {
             // Arrange
-            var instructions = new List<IInstruction>();
+            var instructions = new Collection<IInstruction>();
             instructions.Add(new Instruction("add", "2"));
             instructions.Add(new Instruction("multiply", "3"));
             instructions.Add(new Instruction("divide", "2"));
@@ -25,7 +26,7 @@ namespace Calculator.UnitTests
             instructions.Add(new Instruction("apply", "10"));
 
             // Act
-            double output = InstructionProcessor.Process(instructions);
+            double output = new InstructionProcessorService().Process(instructions);
 
             // Assert
             Assert.AreEqual(output, 7);
@@ -35,13 +36,13 @@ namespace Calculator.UnitTests
         public void Process_ValidNegativeInstructionsList_ReturnTheResultOfOperations()
         {
             // Arrange
-            var instructions = new List<IInstruction>();
+            var instructions = new Collection<IInstruction>();
             instructions.Add(new Instruction("add", "2"));
             instructions.Add(new Instruction("multiply", "-3"));
             instructions.Add(new Instruction("apply", "10"));
 
             // Act
-            double output = InstructionProcessor.Process(instructions);
+            double output = new InstructionProcessorService().Process(instructions);
 
             // Assert
             Assert.AreEqual(output, -36);
@@ -51,12 +52,12 @@ namespace Calculator.UnitTests
         public void Process_ValidDivideByZeroInstruction_ThrowException()
         {
             // Arrange
-            var instructions = new List<IInstruction>();
+            var instructions = new Collection<IInstruction>();
             instructions.Add(new Instruction("divide", "0"));
             instructions.Add(new Instruction("apply", "10"));
 
             // Act
-            var ex = Assert.Throws<Exception>(() => InstructionProcessor.Process(instructions));
+            var ex = Assert.Throws<Exception>(() => new InstructionProcessorService().Process(instructions));
 
             // Assert
             Assert.AreEqual(ex.Message, "Divide by zero error. Instruction 'divide 0' is not allowed.");

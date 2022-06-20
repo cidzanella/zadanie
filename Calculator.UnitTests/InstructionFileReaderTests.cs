@@ -10,7 +10,7 @@ namespace Calculator.UnitTests
         [SetUp]
         public void Setup()
         {
-            Operators.OperatorsDictionary();
+            OperatorsFactory.OperatorsDictionary();
 
         }
 
@@ -21,7 +21,7 @@ namespace Calculator.UnitTests
             string filePath = @"xxxxx";
 
             // Act
-            ArgumentException ex = Assert.Throws<ArgumentException>(() => InstructionFileReader.GetInstructions(filePath));
+            ArgumentException ex = Assert.Throws<ArgumentException>(() => new InstructionRepositoryService().GetInstructions(filePath));
 
             // Assert
             Assert.AreEqual(ex.Message, "Input file path is not valid or lack of permissions to access.");
@@ -34,7 +34,7 @@ namespace Calculator.UnitTests
             string filePath = null;
 
             // Act
-            ArgumentException ex = Assert.Throws<ArgumentException>(() => InstructionFileReader.GetInstructions(filePath));
+            ArgumentException ex = Assert.Throws<ArgumentException>(() => new InstructionRepositoryService().GetInstructions(filePath));
 
             // Assert
             Assert.AreEqual(ex.Message, "Input file path is not valid or lack of permissions to access.");
@@ -47,7 +47,7 @@ namespace Calculator.UnitTests
             string filePath = @"   ";
 
             // Act
-            ArgumentException ex = Assert.Throws<ArgumentException>(() => InstructionFileReader.GetInstructions(filePath));
+            ArgumentException ex = Assert.Throws<ArgumentException>(() => new InstructionRepositoryService().GetInstructions(filePath));
 
             // Assert
             Assert.AreEqual(ex.Message, "Input file path is not valid or lack of permissions to access.");
@@ -60,7 +60,7 @@ namespace Calculator.UnitTests
             string filePath = @"";
 
             // Act
-            ArgumentException ex = Assert.Throws<ArgumentException>(() => InstructionFileReader.GetInstructions(filePath));
+            ArgumentException ex = Assert.Throws<ArgumentException>(() => new InstructionRepositoryService().GetInstructions(filePath));
 
             // Assert
             Assert.AreEqual(ex.Message, "Input file path is not valid or lack of permissions to access.");
@@ -74,7 +74,7 @@ namespace Calculator.UnitTests
             File.Create(filePath).Close();
 
             // Act
-            var ex = Assert.Throws<Exception>(() => InstructionFileReader.GetInstructions(filePath));
+            var ex = Assert.Throws<Exception>(() => new InstructionRepositoryService().GetInstructions(filePath));
 
             // Assert
             Assert.AreEqual(ex.Message, "Instructions Input file has no instructions.");
@@ -93,7 +93,7 @@ namespace Calculator.UnitTests
             File.WriteAllLines(filePath, instructionStringList);
 
             // Act
-            var ex = Assert.Throws<Exception>(() => InstructionFileReader.GetInstructions(filePath));
+            var ex = Assert.Throws<Exception>(() => new InstructionRepositoryService().GetInstructions(filePath));
 
             // Assert
             Assert.AreEqual(ex.Message, "Empty instruction line found in file.");
@@ -112,7 +112,7 @@ namespace Calculator.UnitTests
             File.WriteAllLines(filePath, instructionStringList);
 
             // Act
-            var ex = Assert.Throws<Exception>(() => InstructionFileReader.GetInstructions(filePath));
+            var ex = Assert.Throws<Exception>(() => new InstructionRepositoryService().GetInstructions(filePath));
 
             // Assert
             Assert.AreEqual(ex.Message, "Wrong instruction format found in file, wrong separator found. Expected format: 'operator number'.");
@@ -131,7 +131,7 @@ namespace Calculator.UnitTests
             File.WriteAllLines(filePath, instructionStringList);
 
             // Act
-            var ex = Assert.Throws<Exception>(() => InstructionFileReader.GetInstructions(filePath));
+            var ex = Assert.Throws<Exception>(() => new InstructionRepositoryService().GetInstructions(filePath));
 
             // Assert
             Assert.AreEqual(ex.Message, "Wrong instruction sequence. Expect Apply as last operator.");
@@ -151,7 +151,7 @@ namespace Calculator.UnitTests
             File.WriteAllLines(filePath, instructionStringList);
 
             // Act
-            var ex = Assert.Throws<Exception>(() => InstructionFileReader.GetInstructions(filePath));
+            var ex = Assert.Throws<Exception>(() => new InstructionRepositoryService().GetInstructions(filePath));
 
             // Assert
             Assert.AreEqual(ex.Message, $"'{nonValidNumber}' is not a valid number for Instruction.");
@@ -171,7 +171,7 @@ namespace Calculator.UnitTests
             File.WriteAllLines(filePath, instructionStringList);
 
             // Act
-            var ex = Assert.Throws<Exception>(() => InstructionFileReader.GetInstructions(filePath));
+            var ex = Assert.Throws<Exception>(() => new InstructionRepositoryService().GetInstructions(filePath));
 
             // Assert
             Assert.AreEqual(ex.Message, $"'{nonValidOperator}' is not a valid operator for Instruction.");
@@ -190,7 +190,7 @@ namespace Calculator.UnitTests
             File.WriteAllLines(filePath, instructionStringList);
 
             // Act
-            var instructions = InstructionFileReader.GetInstructions(filePath);
+            var instructions = new InstructionRepositoryService().GetInstructions(filePath);
 
             // Assert
             Assert.That(instructions.Count == instructionStringList.Count);

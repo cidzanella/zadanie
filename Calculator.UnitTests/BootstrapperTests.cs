@@ -14,7 +14,7 @@ namespace Calculator.UnitTests
         public void Initializa_EmptyArgs_ThrowException()
         {
             //Arrange
-            Bootstrapper bootstrapper = new Bootstrapper();
+            BootstrapperService bootstrapper = new BootstrapperService();
             string[] args = { };
 
             //Act
@@ -28,7 +28,7 @@ namespace Calculator.UnitTests
         public void Initializa_NonValidPathString_ThrowException()
         {
             //Arrange
-            Bootstrapper bootstrapper = new Bootstrapper();
+            BootstrapperService bootstrapper = new BootstrapperService();
             string[] args = {"abcd" };
 
             //Act
@@ -42,7 +42,7 @@ namespace Calculator.UnitTests
         public void Initializa_ValidPathString_ThrowException()
         {
             //Arrange
-            Bootstrapper bootstrapper = new Bootstrapper();
+            BootstrapperService bootstrapper = new BootstrapperService();
             string[] args = { @"c:\zadanieinstructionsinput.txt" };
 
             //Act

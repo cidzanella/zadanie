@@ -2,7 +2,7 @@
 
 namespace Calculator
 {
-    public class Bootstrapper
+    public class BootstrapperService
     {
         public double Output { get; set; }
 
@@ -13,13 +13,19 @@ namespace Calculator
                 throw new Exception("Calculator expects an Instructions Input file string path as an argument. \nEx: Calculator \"c:\\instructions.txt\"");
 
             // Initializes operators dictionary
-            Operators.OperatorsDictionary();
+            OperatorsFactory.OperatorsDictionary();
 
             // Generate instructions list from input file
-            var instructions = InstructionFileReader.GetInstructions(args[0]);
+            var instructions = new InstructionRepositoryService().GetInstructions(args[0]);
+
+            // DI
+            //var instructionRepository = new InstructionFileReader(args[0]);
+            //var instructionProcessor = new InstructionProcessor(instructionRepository);
+            // processor vai chamar repository.Getinstructions()
+            //instructionsProcessor.Process();
 
             // Execute instructions
-            Output = InstructionProcessor.Process(instructions);
+            Output = new InstructionProcessorService().Process(instructions);
             Console.WriteLine(Output);
 
         }

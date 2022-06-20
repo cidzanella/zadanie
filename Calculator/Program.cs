@@ -13,7 +13,7 @@ namespace Calculator
         {
             try
             {
-                var bootStrapper = new Bootstrapper();
+                var bootStrapper = new BootstrapperService();
                 bootStrapper.Initialize(args);
             }
             catch (Exception e)

@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    public static class Operators
+    public static class OperatorsFactory
     {
-        private static Dictionary<string, IOperator> _operatorsDictionary;
+        private static Dictionary<string, IOperator> _operatorsDictionary = new Dictionary<string, IOperator>();
         
         public static Dictionary<string, IOperator> OperatorsDictionary()
         {
-            if (_operatorsDictionary != null)
+            if (_operatorsDictionary.Count > 0 )
                 return _operatorsDictionary;
 
             return SetUpOperatorsDictionary();
@@ -20,8 +20,6 @@ namespace Calculator
 
         private static Dictionary<string, IOperator> SetUpOperatorsDictionary()
         {
-            _operatorsDictionary = new Dictionary<string, IOperator>();
-
             _operatorsDictionary.Add("add", new OperatorAdd());
             _operatorsDictionary.Add("subtract", new OperatorSubtract());
             _operatorsDictionary.Add("multiply", new OperatorMultiply());
